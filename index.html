@@ -3,143 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronunciation Practice</title>
+    <title>Minimal Pairs Challenge</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
         body { margin: 0; padding: 0; background-color: #000; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
-        .action-card { background: #000; border-left: 4px solid #D30000; border-radius: 8px; padding: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 95%; max-width: 400px; box-sizing: border-box; }
-        .section-header { color: #ffffff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom: 1.5px solid #D30000; padding-bottom: 4px; margin-bottom: 12px; display: flex; justify-content: space-between; }
-        .progress-container { width: 100%; background: #222; height: 4px; border-radius: 2px; margin-bottom: 15px; overflow: hidden; }
-        .progress-bar { height: 100%; background: #D30000; width: 0%; transition: width 0.4s ease; }
-        .exercise-block { background: #111; padding: 20px; border-radius: 6px; border: 1px solid #222; text-align: center; }
-        .target-text { color: #ffffff; font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; display: block; line-height: 1.2; }
-        .ipa-text { color: #D30000; font-size: 1.4rem; font-weight: 400; margin-bottom: 10px; display: block; letter-spacing: 2px; }
+        .action-card { background: #000; border-left: 4px solid #D30000; border-radius: 12px; padding: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 95%; max-width: 450px; text-align: center; }
+        .pair-container { display: flex; justify-content: space-around; margin: 30px 0; gap: 15px; }
+        .word-box { flex: 1; background: #111; padding: 20px; border-radius: 8px; border: 2px solid #222; transition: 0.3s; }
+        .word-box.active { border-color: #00FF00; background: #0a250a; transform: scale(1.05); }
+        .word-box.error { border-color: #D30000; opacity: 0.5; }
+        .word-text { font-size: 1.5rem; font-weight: 700; display: block; margin-bottom: 5px; }
+        .ipa-text { color: #D30000; font-size: 0.9rem; }
         
-        /* Estilo del traductor */
-        .translation-text { color: #888; font-size: 0.9rem; font-style: italic; margin-bottom: 20px; min-height: 20px; transition: 0.3s; }
-        .btn-translate { background: transparent; color: #555; border: 1px dashed #444; font-size: 0.65rem; padding: 5px; margin-bottom: 15px; width: auto; display: inline-block; }
-
-        button { width: 100%; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; margin: 5px 0; border: none; transition: 0.3s; }
-        .btn-listen { background: #333; color: white; border: 1px solid #444; }
-        .btn-speak { background: #D30000; color: white; position: relative; }
-        .btn-next { background: #00FF00; color: #000; margin-top: 10px; }
-        .btn-skip { background: transparent; color: #666; border: 1px solid #333; font-size: 0.65rem; }
+        .btn-speak { background: #D30000; color: white; padding: 15px; width: 80%; border-radius: 50px; font-weight: 700; text-transform: uppercase; border: none; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .listening { animation: pulse-red 1.5s infinite; background-color: #ff0000; }
         
-        #feedback { margin-top: 15px; min-height: 65px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        .success { color: #00FF00; }
-        .error { color: #D30000; }
-        .hidden { display: none; }
-        
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0px 15px rgba(211, 0, 0, 0); }
-            100% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0); }
-        }
-        .listening-active { animation: pulse-red 1.5s infinite; background-color: #ff0000 !important; }
-
-        @keyframes pulse-green { 0% { box-shadow: 0 0 0px #00FF00; } 50% { box-shadow: 0 0 20px #00FF00; } 100% { box-shadow: 0 0 0px #00FF00; } }
-        .correct-anim { animation: pulse-green 0.6s ease-in-out; border-color: #00FF00 !important; }
+        #feedback { margin-top: 20px; font-weight: 700; min-height: 40px; color: #888; text-transform: uppercase; font-size: 0.8rem; }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0.7); } 70% { box-shadow: 0 0 0px 20px rgba(211, 0, 0, 0); } 100% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0); } }
     </style>
 </head>
 <body>
-<div class="action-card">
-    <div class="section-header">
-        <span>Práctica de Pronunciación</span>
-        <span id="counter" style="color: #888;">1 / 5</span>
-    </div>
-    <div class="progress-container"><div class="progress-bar" id="progress-bar"></div></div>
-    <div id="quiz-area">
-        <div class="exercise-block" id="block">
-            <span class="target-text" id="txt">Sit still.</span>
-            <span class="ipa-text" id="ipa">/sɪt stɪl/</span>
-            
-            <div id="translation" class="translation-text hidden"></div>
-            <button class="btn-translate" id="trans-btn" onclick="toggleTranslation()">Ver Traducción 👁️</button>
 
-            <button class="btn-listen" onclick="play()">1. Escuchar 🔊</button>
-            <button class="btn-speak" id="mic" onclick="start()">2. Hablar 🎤</button>
-            <button id="next" class="btn-next hidden" onclick="go()">Continuar ➔</button>
-            <button id="skip" class="btn-skip" onclick="go()">Saltar ➔</button>
-            <div id="feedback">Listo.</div>
+<div class="action-card">
+    <h2 style="font-size: 1rem; color: #D30000;">MINIMAL PAIRS CHALLENGE</h2>
+    <p style="font-size: 0.8rem;">Dí una de las dos palabras:</p>
+
+    <div class="pair-container">
+        <div class="word-box" id="box1">
+            <span class="word-text" id="w1">Ship</span>
+            <span class="ipa-text">/ʃɪp/</span>
+        </div>
+        <div class="word-box" id="box2">
+            <span class="word-text" id="w2">Sheep</span>
+            <span class="ipa-text">/ʃiːp/</span>
         </div>
     </div>
+
+    <button class="btn-speak" id="mic" onclick="startRecognition()">Presiona y Habla 🎤</button>
+    
+    <div id="feedback">Listo para escuchar...</div>
+    
+    <button onclick="nextPair()" style="background: transparent; color: #555; border: none; cursor: pointer; margin-top: 20px; font-size: 0.7rem; text-decoration: underline;">Siguiente par ➔</button>
 </div>
+
 <script>
-    // Agregamos la propiedad 's' (spanish) para la traducción
-    const data = [
-        { t: "Sit still.", p: "/sɪt stɪl/", s: "Quédate quieto." },
-        { t: "The chick is sick.", p: "/ðə tʃɪk ɪz sɪk/", s: "El pollito está enfermo." },
-        { t: "Jim lives in the city.", p: "/dʒɪm lɪvz ɪn ðə sɪri/", s: "Jim vive en la ciudad." },
-        { t: "Kill the big insect.", p: "/kɪl ðə bɪɡ ɪnsekt/", s: "Mata al insecto grande." },
-        { t: "Fix it a little bit.", p: "/fɪks ɪt ə lɪrəl bɪt/", s: "Arréglalo un poquito." }
+    const pairs = [
+        { a: "ship", b: "sheep" },
+        { a: "bit", b: "beat" },
+        { a: "fit", b: "feet" },
+        { a: "sit", b: "seat" },
+        { a: "grin", b: "green" }
     ];
+    let current = 0;
 
-    let idx = 0;
     const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const rec = Recognition ? new Recognition() : null;
-    if(rec) { rec.lang = 'en-US'; rec.continuous = false; }
-    
-    function toggleTranslation() {
-        const t = document.getElementById('translation');
-        const b = document.getElementById('trans-btn');
-        if(t.classList.contains('hidden')) {
-            t.innerText = data[idx].s;
-            t.classList.remove('hidden');
-            b.innerText = "Ocultar 🙈";
-        } else {
-            t.classList.add('hidden');
-            b.innerText = "Ver Traducción 👁️";
-        }
-    }
+    const rec = new Recognition();
+    rec.lang = 'en-US';
 
-    function play() { window.speechSynthesis.cancel(); let u = new SpeechSynthesisUtterance(data[idx].t); u.lang = 'en-US'; u.rate = 0.7; window.speechSynthesis.speak(u); }
-    
-    function start() { 
-        if (!rec) return alert("Micrófono no compatible."); 
-        try { rec.start(); } catch(e) {} 
-        const micBtn = document.getElementById('mic');
-        micBtn.classList.add('listening-active');
-        micBtn.innerText = "Escuchando... 🎙️";
+    function startRecognition() {
+        rec.start();
+        const btn = document.getElementById('mic');
+        btn.classList.add('listening');
+        btn.innerText = "Escuchando...";
+        resetBoxes();
     }
 
     rec.onresult = (e) => {
-        let heard = e.results[0][0].transcript.toLowerCase().replace(/[.,!?]/g,"").trim();
-        let target = data[idx].t.toLowerCase().replace(/[.,!?]/g,"").trim();
+        const heard = e.results[0][0].transcript.toLowerCase().trim();
+        const word1 = pairs[current].a;
+        const word2 = pairs[current].b;
         const fb = document.getElementById('feedback');
-        if (heard.includes(target) || target.includes(heard)) {
-            fb.innerHTML = `<span class="success">¡Excelente!</span>`;
-            document.getElementById('block').classList.add('correct-anim');
-            document.getElementById('next').classList.remove('hidden');
-            document.getElementById('skip').classList.add('hidden');
-        } else { 
-            fb.innerHTML = `<span class="error">Escuché: "${heard}"</span>`; 
+
+        if (heard === word1) {
+            document.getElementById('box1').classList.add('active');
+            fb.innerHTML = `<span style="color:#00FF00">Entendí: "${word1}" (I corta)</span>`;
+        } else if (heard === word2) {
+            document.getElementById('box2').classList.add('active');
+            fb.innerHTML = `<span style="color:#00FF00">Entendí: "${word2}" (I larga)</span>`;
+        } else {
+            fb.innerHTML = `<span style="color:#D30000">Dijiste: "${heard}"... intenta ser más claro.</span>`;
         }
     };
 
-    rec.onend = () => { 
-        const micBtn = document.getElementById('mic');
-        micBtn.classList.remove('listening-active');
-        micBtn.innerText = "2. Hablar 🎤";
+    rec.onend = () => {
+        const btn = document.getElementById('mic');
+        btn.classList.remove('listening');
+        btn.innerText = "Presiona y Habla 🎤";
     };
 
-    function go() {
-        idx++;
-        if (idx < data.length) {
-            document.getElementById('txt').innerText = data[idx].t;
-            document.getElementById('ipa').innerText = data[idx].p;
-            document.getElementById('translation').classList.add('hidden');
-            document.getElementById('trans-btn').innerText = "Ver Traducción 👁️";
-            document.getElementById('counter').innerText = `${idx + 1} / ${data.length}`;
-            document.getElementById('progress-bar').style.width = `${((idx + 1) / data.length) * 100}%`;
-            document.getElementById('next').classList.add('hidden');
-            document.getElementById('skip').classList.remove('hidden');
-            document.getElementById('feedback').className = "";
-            document.getElementById('feedback').innerText = "Listo.";
-        } else { 
-            document.getElementById('quiz-area').innerHTML = `<div class="exercise-block" style="border-color:#00FF00"><h3 style="color:#00FF00">¡COMPLETADO!</h3><button class="btn-speak" onclick="location.reload()">REINICIAR</button></div>`; 
-        }
+    function resetBoxes() {
+        document.getElementById('box1').className = "word-box";
+        document.getElementById('box2').className = "word-box";
     }
-    document.getElementById('progress-bar').style.width = `${((idx + 1) / data.length) * 100}%`;
+
+    function nextPair() {
+        current = (current + 1) % pairs.length;
+        document.getElementById('w1').innerText = pairs[current].a.charAt(0).toUpperCase() + pairs[current].a.slice(1);
+        document.getElementById('w2').innerText = pairs[current].b.charAt(0).toUpperCase() + pairs[current].b.slice(1);
+        resetBoxes();
+        document.getElementById('feedback').innerText = "Nuevo par listo.";
+    }
 </script>
+
 </body>
 </html>
