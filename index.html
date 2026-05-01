@@ -26,7 +26,6 @@
         .word-text { font-size: 1.4rem; font-weight: 700; display: block; margin-bottom: 5px; }
         .ipa-text { color: #D30000; font-size: 0.85rem; font-weight: 400; }
         
-        /* Cambio solicitado: Blur más suave y mayor opacidad */
         .translation-small { font-size: 0.75rem; color: #888; font-style: italic; margin-top: 5px; cursor: pointer; transition: 0.3s; }
         .blur { filter: blur(2.5px); opacity: 0.8; }
 
@@ -48,7 +47,7 @@
 <div class="action-card">
     <div class="section-header">
         <span>Minimal Pairs Challenge</span>
-        <span id="counter" style="color: #D30000;">1 / 15</span>
+        <span id="counter" style="color: #D30000;">1 / 20</span>
     </div>
     
     <div class="progress-container">
@@ -98,7 +97,12 @@
         { a: "book", b: "buck", ipaA: "/bʊk/", ipaB: "/bʌk/", sA: "Libro", sB: "Dólar / Macho" },
         { a: "cot", b: "coat", ipaA: "/kɒt/", ipaB: "/koʊt/", sA: "Catre", sB: "Abrigo" },
         { a: "heart", b: "hurt", ipaA: "/hɑːrt/", ipaB: "/hɜːrt/", sA: "Corazón", sB: "Herir" },
-        { a: "hot", b: "hat", ipaA: "/hɒt/", ipaB: "/hæt/", sA: "Caliente", sB: "Sombrero" }
+        { a: "hot", b: "hat", ipaA: "/hɒt/", ipaB: "/hæt/", sA: "Caliente", sB: "Sombrero" },
+        { a: "live", b: "leave", ipaA: "/lɪv/", ipaB: "/liːv/", sA: "Vivir", sB: "Salir / Dejar" },
+        { a: "fill", b: "feel", ipaA: "/fɪl/", ipaB: "/fiːl/", sA: "Llenar", sB: "Sentir" },
+        { a: "men", b: "man", ipaA: "/men/", ipaB: "/mæn/", sA: "Hombres", sB: "Hombre" },
+        { a: "bus", b: "boss", ipaA: "/bʌs/", ipaB: "/bɔːs/", sA: "Autobús", sB: "Jefe" },
+        { a: "luck", b: "look", ipaA: "/lʌk/", ipaB: "/lʊk/", sA: "Suerte", sB: "Mirar" }
     ];
 
     let idx = 0;
