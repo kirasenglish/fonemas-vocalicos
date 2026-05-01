@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +11,7 @@
         
         .action-card { background: #000; border-left: 4px solid #D30000; border-radius: 8px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); width: 95%; max-width: 450px; box-sizing: border-box; }
         
-        .section-header { color: #ffffff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom: 1.5px solid #D30000; padding-bottom: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .section-header { color: #ffffff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom:.5px solid #D30000; padding-bottom: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
         
         .progress-container { width: 100%; background: #222; height: 6px; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
         .progress-bar { height: 100%; background: #D30000; width: 0%; transition: width 0.4s ease; }
@@ -46,7 +46,7 @@
 <div class="action-card">
     <div class="section-header">
         <span>Minimal Pairs Challenge</span>
-        <span id="counter" style="color: #D30000;">1 / 5</span>
+        <span id="counter" style="color: #D30000;">1 / 15</span>
     </div>
     
     <div class="progress-container">
@@ -59,14 +59,14 @@
             
             <div class="pair-grid">
                 <div class="word-box" id="box1">
-                    <span class="word-text" id="w1">Ship</span>
-                    <span class="ipa-text" id="ipa1">/ʃɪp/</span>
-                    <div class="translation-small blur" onclick="this.classList.toggle('blur')" id="s1">Barco</div>
+                    <span class="word-text" id="w1">Soda</span>
+                    <span class="ipa-text" id="ipa1">/ˈsoʊdə/</span>
+                    <div class="translation-small blur" onclick="this.classList.toggle('blur')" id="s1">Soda</div>
                 </div>
                 <div class="word-box" id="box2">
-                    <span class="word-text" id="w2">Sheep</span>
-                    <span class="ipa-text" id="ipa2">/ʃiːp/</span>
-                    <div class="translation-small blur" onclick="this.classList.toggle('blur')" id="s2">Oveja</div>
+                    <span class="word-text" id="w2">Sir</span>
+                    <span class="ipa-text" id="ipa2">/sɜːr/</span>
+                    <div class="translation-small blur" onclick="this.classList.toggle('blur')" id="s2">Señor</div>
                 </div>
             </div>
 
@@ -82,11 +82,21 @@
 
 <script>
     const data = [
+        { a: "soda", b: "sir", ipaA: "/ˈsoʊdə/", ipaB: "/sɜːr/", sA: "Soda", sB: "Señor" },
+        { a: "bird", b: "beer", ipaA: "/bɜːrd/", ipaB: "/bɪər/", sA: "Pájaro", sB: "Cerveza" },
+        { a: "bought", b: "boat", ipaA: "/bɔːt/", ipaB: "/boʊt/", sA: "Compró", sB: "Bote" },
+        { a: "not", b: "note", ipaA: "/nɒt/", ipaB: "/noʊt/", sA: "No", sB: "Nota" },
+        { a: "cup", b: "cap", ipaA: "/kʌp/", ipaB: "/kæp/", sA: "Taza", sB: "Gorra" },
+        { a: "dark", b: "duck", ipaA: "/dɑːrk/", ipaB: "/dʌk/", sA: "Oscuro", sB: "Pato" },
+        { a: "cat", b: "cut", ipaA: "/kæt/", ipaB: "/kʌt/", sA: "Gato", sB: "Cortar" },
+        { a: "bed", b: "bad", ipaA: "/bed/", ipaB: "/bæd/", sA: "Cama", sB: "Malo" },
         { a: "ship", b: "sheep", ipaA: "/ʃɪp/", ipaB: "/ʃiːp/", sA: "Barco", sB: "Oveja" },
-        { a: "bit", b: "beat", ipaA: "/bɪt/", ipaB: "/biːt/", sA: "Pedazo", sB: "Ritmo / Latido" },
-        { a: "fit", b: "feet", ipaA: "/fɪt/", ipaB: "/fiːt/", sA: "Ajustar / Sano", sB: "Pies" },
-        { a: "sit", b: "seat", ipaA: "/sɪt/", ipaB: "/siːt/", sA: "Sentarse", sB: "Asiento" },
-        { a: "grin", b: "green", ipaA: "/ɡrɪn/", ipaB: "/ɡriːn/", sA: "Sonrisa", sB: "Verde" }
+        { a: "sheet", b: "shit", ipaA: "/ʃiːt/", ipaB: "/ʃɪt/", sA: "Hoja / Sábana", sB: "Mierda" },
+        { a: "pool", b: "pull", ipaA: "/puːl/", ipaB: "/pʊl/", sA: "Piscina", sB: "Jalar" },
+        { a: "book", b: "buck", ipaA: "/bʊk/", ipaB: "/bʌk/", sA: "Libro", sB: "Dólar / Macho" },
+        { a: "cot", b: "coat", ipaA: "/kɒt/", ipaB: "/koʊt/", sA: "Catre", sB: "Abrigo" },
+        { a: "heart", b: "hurt", ipaA: "/hɑːrt/", ipaB: "/hɜːrt/", sA: "Corazón", sB: "Herir" },
+        { a: "hot", b: "hat", ipaA: "/hɒt/", ipaB: "/hæt/", sA: "Caliente", sB: "Sombrero" }
     ];
 
     let idx = 0;
@@ -141,7 +151,6 @@
     function go() {
         idx++;
         if (idx < data.length) {
-            // Actualizar textos
             document.getElementById('w1').innerText = data[idx].a.charAt(0).toUpperCase() + data[idx].a.slice(1);
             document.getElementById('w2').innerText = data[idx].b.charAt(0).toUpperCase() + data[idx].b.slice(1);
             document.getElementById('ipa1').innerText = data[idx].ipaA;
@@ -149,11 +158,9 @@
             document.getElementById('s1').innerText = data[idx].sA;
             document.getElementById('s2').innerText = data[idx].sB;
             
-            // Resetear estados
             document.querySelectorAll('.translation-small').forEach(el => el.classList.add('blur'));
             resetBoxes();
             
-            // UI
             document.getElementById('counter').innerText = `${idx + 1} / ${data.length}`;
             document.getElementById('progress-bar').style.width = `${((idx + 1) / data.length) * 100}%`;
             document.getElementById('next').classList.add('hidden');
@@ -164,7 +171,6 @@
         }
     }
 
-    // Init progress
     document.getElementById('progress-bar').style.width = `${((idx + 1) / data.length) * 100}%`;
 </script>
 </body>
