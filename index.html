@@ -9,45 +9,75 @@
         
         body { margin: 0; padding: 0; background-color: #000; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; color: white; }
         
-        .action-card { background: #000; border-left: 4px solid #D30000; border-radius: 8px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); width: 95%; max-width: 450px; box-sizing: border-box; }
+        .action-card { background: #000; border-left: 8px solid #D30000; border-radius: 12px; padding: 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); width: 95%; max-width: 900px; box-sizing: border-box; }
         
-        .section-header { color: #ffffff; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; border-bottom:.5px solid #D30000; padding-bottom: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .section-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
         
-        .progress-container { width: 100%; background: #222; height: 6px; border-radius: 3px; margin-bottom: 20px; overflow: hidden; }
+        .header-title-container { display: flex; align-items: center; gap: 15px; border-bottom: 3px solid #D30000; padding-bottom: 12px; }
+        .header-title-container span { color: #ffffff; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
+        
+        .logo-bracket { width: 50px; height: 50px; background: #000; border-left: 4px solid #D30000; border-radius: 6px; display: flex; align-items: center; justify-content: center; padding-left: 6px; }
+        .logo-bracket img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+        
+        .header-right { display: flex; align-items: center; gap: 20px; padding-bottom: 12px; white-space: nowrap; }
+        #counter { font-size: 1.1rem; font-weight: 700; color: #D30000; }
+        
+        .progress-container { width: 100%; background: #222; height: 10px; border-radius: 5px; margin-bottom: 25px; overflow: hidden; }
         .progress-bar { height: 100%; background: #D30000; width: 0%; transition: width 0.4s ease; }
         
-        .exercise-block { background: #111; padding: 20px; border-radius: 10px; border: 1px solid #222; text-align: center; }
+        .exercise-block { background: #111; padding: 40px 30px; border-radius: 15px; border: 1px solid #222; text-align: center; }
         
-        /* Contenedor de Pares */
-        .pair-grid { display: flex; gap: 10px; margin-bottom: 20px; }
-        .word-box { flex: 1; background: #1a1a1a; padding: 15px 10px; border-radius: 8px; border: 2px solid #333; transition: 0.3s; }
+        /* Contenedor de Pares Estabilizado */
+        .pair-grid { display: flex; gap: 20px; margin: 25px 0; }
+        .word-box { flex: 1; background: #1a1a1a; padding: 25px 15px; border-radius: 10px; border: 2px solid #333; transition: 0.3s; }
         .word-box.active { border-color: #00FF00; background: #0a250a; transform: scale(1.02); }
         
-        .word-text { font-size: 1.4rem; font-weight: 700; display: block; margin-bottom: 5px; }
-        .ipa-text { color: #D30000; font-size: 0.85rem; font-weight: 400; }
+        .word-text { font-size: 2.2rem; font-weight: 700; display: block; margin-bottom: 5px; color: #ffffff; line-height: 1.1; }
+        .ipa-text { color: #D30000; font-size: 1.2rem; font-weight: 700; display: block; margin-bottom: 10px; }
         
-        .translation-small { font-size: 0.75rem; color: #888; font-style: italic; margin-top: 5px; cursor: pointer; transition: 0.3s; }
-        .blur { filter: blur(2.5px); opacity: 0.8; }
+        .translation-small { font-size: 1.1rem; color: #666; font-style: italic; margin-top: 10px; cursor: pointer; transition: 0.3s; display: inline-block; }
+        .translation-small:hover { color: #fff; }
+        .blur { filter: blur(5px); opacity: 0.6; }
 
-        button { width: 100%; padding: 15px; border-radius: 8px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; margin: 8px 0; border: none; transition: 0.3s; }
+        button { width: 100%; max-width: 400px; padding: 20px; border-radius: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; font-family: 'Montserrat', sans-serif; font-size: 1.1rem; margin: 10px auto; border: none; transition: 0.2s; display: block; }
         
-        .btn-speak { background: #D30000; color: white; box-shadow: 0 4px 15px rgba(211, 0, 0, 0.3); }
+        .btn-speak { background: #D30000; color: white; position: relative; box-shadow: 0 4px 15px rgba(211, 0, 0, 0.3); }
         .btn-next { background: #00FF00; color: #000; margin-top: 15px; }
-        .btn-skip { background: transparent; color: #555; border: 1px solid #222; font-size: 0.7rem; }
+        .btn-skip { background: transparent; color: #555; border: 1px solid #222; font-size: 0.8rem; }
 
-        #feedback { margin-top: 15px; min-height: 45px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-align: center; }
+        #feedback { margin-top: 20px; min-height: 50px; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; }
+        
+        .hidden { display: none; }
+        
+        @media (max-width: 600px) { 
+            .action-card { padding: 20px; }
+            .exercise-block { padding: 30px 15px; }
+            .pair-grid { flex-direction: column; gap: 15px; }
+            .word-text { font-size: 1.8rem; }
+            .ipa-text { font-size: 1rem; }
+            .logo-bracket { width: 35px; height: 35px; } 
+            .logo-bracket img { width: 30px; height: 30px; } 
+            .header-title-container span { font-size: 0.9rem; }
+            .header-right { gap: 10px; }
+            #counter { font-size: 0.85rem; }
+            .translation-small { font-size: 1rem; }
+        }
         
         @keyframes pulse-red { 0% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0.7); } 70% { box-shadow: 0 0 0px 20px rgba(211, 0, 0, 0); } 100% { box-shadow: 0 0 0px 0px rgba(211, 0, 0, 0); } }
         .listening-active { animation: pulse-red 1.5s infinite; background-color: #ff0000 !important; }
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="action-card">
     <div class="section-header">
-        <span>Minimal Pairs Challenge</span>
-        <span id="counter" style="color: #D30000;">1 / 20</span>
+        <div class="header-title-container">
+            <div class="logo-bracket"><img src="https://drive.google.com/thumbnail?id=1DQWHMZf7MpnzZBa3CbqqyJGLQEK6U4lZ" alt="Kira"></div>
+            <span>Minimal Pairs Challenge</span>
+        </div>
+        <div class="header-right">
+            <span id="counter">1 / 20</span>
+        </div>
     </div>
     
     <div class="progress-container">
@@ -56,7 +86,7 @@
 
     <div id="quiz-area">
         <div class="exercise-block">
-            <p style="font-size: 0.7rem; color: #888; margin-top: 0;">Pronuncia una de las dos palabras:</p>
+            <p style="font-size: 0.9rem; color: #888; margin-top: 0; text-transform: uppercase; font-weight: 700; letter-spacing: 1px;">Pronuncia una de las dos palabras:</p>
             
             <div class="pair-grid">
                 <div class="word-box" id="box1">
@@ -119,35 +149,37 @@
         micBtn.innerText = "Escuchando... 🎤";
     }
 
-    rec.onresult = (e) => {
-        const heard = e.results[0][0].transcript.toLowerCase().trim();
-        const wordA = data[idx].a.toLowerCase();
-        const wordB = data[idx].b.toLowerCase();
-        const fb = document.getElementById('feedback');
+    if(rec) {
+        rec.onresult = (e) => {
+            const heard = e.results[0][0].transcript.toLowerCase().trim();
+            const wordA = data[idx].a.toLowerCase();
+            const wordB = data[idx].b.toLowerCase();
+            const fb = document.getElementById('feedback');
 
-        if (heard.includes(wordA)) {
-            document.getElementById('box1').classList.add('active');
-            fb.innerHTML = `<span style="color:#00FF00">Entendí: "${data[idx].a}" ✅</span>`;
-            showNext();
-        } else if (heard.includes(wordB)) {
-            document.getElementById('box2').classList.add('active');
-            fb.innerHTML = `<span style="color:#00FF00">Entendí: "${data[idx].b}" ✅</span>`;
-            showNext();
-        } else {
-            fb.innerHTML = `<span style="color:#D30000">Escuché: "${heard}"... intenta de nuevo.</span>`;
-        }
-    };
+            if (heard.includes(wordA)) {
+                document.getElementById('box1').classList.add('active');
+                fb.innerHTML = `<span style="color:#00FF00">Entendí: "${data[idx].a}" ✅</span>`;
+                showNext();
+            } else if (heard.includes(wordB)) {
+                document.getElementById('box2').classList.add('active');
+                fb.innerHTML = `<span style="color:#00FF00">Entendí: "${data[idx].b}" ✅</span>`;
+                showNext();
+            } else {
+                fb.innerHTML = `<span style="color:#D30000">Escuché: "${heard}"... intenta de nuevo. ❌</span>`;
+            }
+        };
+
+        rec.onend = () => {
+            const micBtn = document.getElementById('mic');
+            micBtn.classList.remove('listening-active');
+            micBtn.innerText = "Presiona y Habla 🎤";
+        };
+    }
 
     function showNext() {
         document.getElementById('next').classList.remove('hidden');
         document.getElementById('skip').classList.add('hidden');
     }
-
-    rec.onend = () => {
-        const micBtn = document.getElementById('mic');
-        micBtn.classList.remove('listening-active');
-        micBtn.innerText = "Presiona y Habla 🎤";
-    };
 
     function resetBoxes() {
         document.getElementById('box1').classList.remove('active');
@@ -173,7 +205,7 @@
             document.getElementById('skip').classList.remove('hidden');
             document.getElementById('feedback').innerHTML = "Listo.";
         } else {
-            document.getElementById('quiz-area').innerHTML = `<h2 style="color:#00FF00">¡RETO COMPLETADO!</h2><button class="btn-speak" onclick="location.reload()">REINICIAR</button>`;
+            document.getElementById('quiz-area').innerHTML = `<div class="exercise-block"><h2 style="color:#00FF00">¡RETO COMPLETADO!</h2><button class="btn-speak" onclick="location.reload()">REINICIAR</button></div>`;
         }
     }
 
